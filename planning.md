@@ -121,17 +121,17 @@ The session dictionary is the single source of truth during one interaction. It 
 
 ```mermaid
 flowchart TD
-    U[User query] --> P[Planning loop]
-    P --> Q[Parse query into description, size, max_price]
-    Q --> S[search_listings]
-    S -->|results empty| E[Set session.error and return]
-    S -->|results found| ST1[session.selected_item = results[0]]
-    ST1 --> O[suggest_outfit]
-    O --> ST2[session.outfit_suggestion = outfit]
-    ST2 -->|invalid outfit| E
-    ST2 --> C[create_fit_card]
-    C --> ST3[session.fit_card = caption]
-    ST3 --> R[Return session]
+    U["User query"] --> P["Planning loop"]
+    P --> Q["Parse query into description, size, max_price"]
+    Q --> S["search_listings"]
+    S -->|"results empty"| E["Set session error and return"]
+    S -->|"results found"| ST1["Store top result as selected_item"]
+    ST1 --> O["suggest_outfit"]
+    O --> ST2["Store outfit_suggestion"]
+    ST2 -->|"invalid outfit"| E
+    ST2 --> C["create_fit_card"]
+    C --> ST3["Store fit_card caption"]
+    ST3 --> R["Return session"]
     E --> R
 ```
 
